@@ -20,6 +20,12 @@ module Attachinary
     initializer "attachinary.enable_simple_form" do |app|
       require "attachinary/simple_form" if defined?(::SimpleForm::Inputs::Base)
     end
+    
+    config.to_prepare do
+      Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |c|
+        require_dependency(c)
+      end
+    end
 
   end
 end
