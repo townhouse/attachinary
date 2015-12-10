@@ -38,7 +38,8 @@ module Attachinary
     end
 
     def remove_temporary_tag
-      Cloudinary::Uploader.remove_tag(Attachinary::TMPTAG, [public_id]) if public_id
+      #Cloudinary::Uploader.remove_tag(Attachinary::TMPTAG, [public_id]) if public_id
+      AttachinaryWorker.perform_async(public_id) if public_id
     end
 
   end
